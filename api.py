@@ -18,6 +18,16 @@ def serve_static(filename):
     root_dir = os.path.dirname(os.path.realpath(__file__))
     return send_from_directory(os.path.join(root_dir, 'static', 'js'), filename)
 
+@app.route('/app_content', methods=['GET'])
+def app_content():
+  out_vals = {'curr_bal': {'val': 40.02, 'due': "Due on Nov 6"}, 'credit': {'val': 2385.35, 'limit': "Credit limit: $2500"},
+    'transactions': [{'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "-$44.05"},
+                      {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05"}],
+    'subscriptions': [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'amount': "$9.99"},
+                        {'name': 'Google Express', 'date': 'Scheduled on Oct 14', 'amount': "$10.00"},
+                        {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'amount': "$29.99"}]}
+  return make_response(jsonify(out_vals))
+
 @app.route('/mhacks', methods=['GET'])
 def mhacks():
   url = "http://api.reimaginebanking.com/accounts?key=" + mhack_key
