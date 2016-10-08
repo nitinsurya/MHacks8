@@ -2,6 +2,10 @@
 
 <html lang="en">
 <head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.print.css"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width" />
 
@@ -19,9 +23,17 @@
   <div id="topleft" style="background-color: green;
     width: 50%;
     height: 300px;"></div>
-  <div id="bottomleft" style="background-color: blue;
+  <div id="calendar" style="background-color: blue;
     width: 50%;
     height: 300px;"></div>
+    <div id="map" style="background-color: blue;
+      width: 50%;
+      height: 300px;
+      display:none"></div>
+      <div id="piechart" style="background-color: blue;
+        width: 50%;
+        height: 300px;
+        display:none"></div>
 </div>
 <div id="right" style="background-color: brown;
     width: 50%;
@@ -29,4 +41,9 @@
     float: right;
     margin-top: -600px;"></div>
 
+<script>
+$('#calendar').fullCalendar({
+    events: '/events.json'
+});
+</script>
 </html>
