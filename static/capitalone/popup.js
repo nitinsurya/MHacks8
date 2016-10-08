@@ -37,14 +37,18 @@ function addValToDiv(identifier, val) {
 }
 
 function addTransactionsToList(identifier, transactions, additional_class) {
-    template_li = $('.template_trans_li');
+    var template_li = $('.template_trans_li');
 
+    var count = 0;
     $.each(transactions, function(index, transaction) {
-        console.log(transaction)
+        count += 1;
         $(identifier).append('<li>' + 
             '<div class="name">' + transaction.name + '</div>' +
             '<div class="timestamp">' + transaction.date + '</div>' +
             '<div class="amount ' + (transaction.amount[0] == '-' ? 'negative' : '') + additional_class + '">' + transaction.amount + '</div>' +
             '</li>')
-    })
+    });
+
+    if(count == 0)
+        $(identifier).find('.no_entry').removeClass('invisible')
 }

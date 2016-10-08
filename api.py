@@ -28,6 +28,22 @@ def app_content():
                         {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'amount': "$29.99"}]}
   return make_response(jsonify(out_vals))
 
+@app.route('/app_events', methods=['GET'])
+def app_events():
+  out_vals = [{
+                "title": "event1",
+                "start": "2016-10-20"
+              }, {
+                "title": "event2",
+                "start": "2016-10-05",
+                "end": "2016-10-07"
+              }, {
+                "title": "event3",
+                "start": "2016-10-09T12:30:00",
+                "allDay": False
+              }]
+  return make_response(jsonify(out_vals))
+
 @app.route('/mhacks', methods=['GET'])
 def mhacks():
   url = "http://api.reimaginebanking.com/accounts?key=" + mhack_key

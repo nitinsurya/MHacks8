@@ -41,14 +41,18 @@
     width: 50%;
     height: 600px;
     float: right;
-    margin-top: -600px;"></div>
+    margin-top: -600px;">
+      <div class="transactions_list">
+        <ul></ul>
+      </div>
+    </div>
 
 <script>
 $(document).ready(function() {
 
 		$('#calendar').fullCalendar({
 		// allow "more" link when too many events
-			events: './events.json'
+			events: 'http://52.77.240.18:8081/app_events'
 		});
 
 	});
