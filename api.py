@@ -35,24 +35,28 @@ def app_content():
   url = "http://api.reimaginebanking.com/accounts/" + account_id + "?key=" + mhack_key
   req = requests.get(url)
   if req.status_code == 200:
+
     json_data = req.json()
     out_vals = {'curr_bal': {'val': str(10000 - json_data['balance']), 'text-sub': "Due on Nov 6"},
         'credit': {'val': str(json_data['balance']), 'text-sub': "Credit limit: $10000"}}
     url = "http://api.reimaginebanking.com/accounts/" + account_id + "/purchases?key=" + mhack_key
     req = requests.get(url)
     json_data = req.json()
+    
     for elem in json_data:
       merchant_details = merchant_data[elem['merchant_id']]
       if coords:
         out_vals['transactions'] = [{'name': merchant_details['name'], 'date': get_format_data(elem['purchase_date']), 'amount': str(elem['amount']),
                   'lat': merchant_details['lat'], 'lon': merchant_details['lng']},
-                {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05", 'lat': "41.879483", 'lon': "-88.0998467"}]
+                {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05", 'lat': 41.879483, 'lon': -88.1098467}]
       else:
         out_vals['transactions'] = [{'name': merchant_details['name'], 'date': get_format_data(elem['purchase_date']), 'amount': str(elem['amount'])},
                             {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05"}]
   else:
-    out_vals = {"error": "Something went wrong"}
+    return make_response(jsonify({"error": "Something went wrong"}))
 
+  url = "http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + mhack_key
+  req = requests.get(url)json()
   out_vals['subscriptions'] = [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'amount': "$9.99"},
                         {'name': 'Google Express', 'date': 'Scheduled on Oct 14', 'amount': "$10.00"},
                         {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'amount': "$29.99"}]
