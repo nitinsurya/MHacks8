@@ -13,14 +13,6 @@ $('*').each(function(){
         console.log($(this).attr('src'));
     }
 });
-$(document).ready(function(){
-    
-//    Receiving data from Background and alert
-    
-    var port = chrome.runtime.connect({name:"mycontentscript"});
-    port.onMessage.addListener(function(message,sender){
-      if(message.greeting === "hello"){
-        alert(message.greeting);
-      }
-    });
+chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+  console.log(response.farewell);
 });
