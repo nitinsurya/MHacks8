@@ -4,8 +4,10 @@
 from flask import Flask, request, send_from_directory, jsonify, make_response, abort
 import os
 import requests
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, static_url_path='')
+CORS(app)
 
 mhack_key = "cb3e8a83305f920c21ee1b74e7694bcf"
 
@@ -56,7 +58,7 @@ def app_content():
     return make_response(jsonify({"error": "Something went wrong"}))
 
   url = "http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + mhack_key
-  req = requests.get(url)json()
+  req = requests.get(url).json()
   out_vals['subscriptions'] = [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'amount': "$9.99"},
                         {'name': 'Google Express', 'date': 'Scheduled on Oct 14', 'amount': "$10.00"},
                         {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'amount': "$29.99"}]
