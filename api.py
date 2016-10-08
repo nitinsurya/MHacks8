@@ -22,7 +22,7 @@ def serve_static(filename):
 def app_content():
   coords = request.args.get('coords')
   if coords:
-    out_vals = {'curr_bal': {'val': 40.02, 'due': "Due on Nov 6"}, 'credit': {'val': 2385.35, 'limit': "Credit limit: $2500"},
+    out_vals = {'curr_bal': {'val': 40.02, 'text-sub': "Due on Nov 6"}, 'credit': {'val': 2385.35, 'text-sub': "Credit limit: $2500"},
       'transactions': [{'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "-$44.05", 'lat': "41.859483", 'lon': "-88.0598467"},
                         {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05", 'lat': "41.879483", 'lon': "-88.0998467"}],
       'subscriptions': [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'amount': "$9.99"},

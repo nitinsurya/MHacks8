@@ -22,10 +22,10 @@ $(document).ready(function(){
 
     $.getJSON(urls.app_content_url, function(data) {
         addValToDiv('.balance .current .amount', data.curr_bal.val);
-        addValToDiv('.balance .current .text-sub', data.curr_bal.val);
+        addValToDiv('.balance .current .text-sub', data.curr_bal['text-sub']);
 
         addValToDiv('.balance .available .amount', data.credit.val);
-        addValToDiv('.balance .available .text-sub', data.credit.val);
+        addValToDiv('.balance .available .text-sub', data.credit['text-sub']);
 
         addTransactionsToList('.transactions_list', data.transactions, '');
         addTransactionsToList('.details-subscription ul', data.subscriptions, 'scheduled');
