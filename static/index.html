@@ -2,10 +2,12 @@
 
 <html lang="en">
 <head>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.print.css"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="./js/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.print.css">
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width" />
 
@@ -26,14 +28,14 @@
   <div id="calendar" style="background-color: blue;
     width: 50%;
     height: 300px;"></div>
-    <div id="map" style="background-color: blue;
+    <!-- <div id="map" style="background-color: blue;
       width: 50%;
       height: 300px;
       display:none"></div>
       <div id="piechart" style="background-color: blue;
         width: 50%;
         height: 300px;
-        display:none"></div>
+        display:none"></div> -->
 </div>
 <div id="right" style="background-color: brown;
     width: 50%;
@@ -42,8 +44,13 @@
     margin-top: -600px;"></div>
 
 <script>
-$('#calendar').fullCalendar({
-    events: '/events.json'
-});
+$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+		// allow "more" link when too many events
+			events: './events.json'
+		});
+
+	});
 </script>
 </html>
