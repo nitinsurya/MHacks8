@@ -1,0 +1,18 @@
+$(document).ready(function(){
+    $(".transactions").click(function(){
+        $(this).addClass("selected");
+        $(".subscriptions").removeClass("selected");
+		$(".details-subscription").removeClass("visible");
+		$(".details-subscription").addClass("invisible");
+		$(".details-transaction").removeClass("invisible");
+		$(".details-transaction").addClass("visible");
+    });
+    $(".subscriptions").click(function(){
+        $(this).addClass("selected");
+        $(".transactions").removeClass("selected");
+		$(".details-transaction").removeClass("visible");
+		$(".details-transaction").addClass("invisible");
+		$(".details-subscription").removeClass("invisible");
+		$(".details-subscription").addClass("visible");
+    });
+});
