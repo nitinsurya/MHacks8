@@ -20,12 +20,21 @@ def serve_static(filename):
 
 @app.route('/app_content', methods=['GET'])
 def app_content():
-  out_vals = {'curr_bal': {'val': 40.02, 'due': "Due on Nov 6"}, 'credit': {'val': 2385.35, 'limit': "Credit limit: $2500"},
-    'transactions': [{'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "-$44.05"},
-                      {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05"}],
-    'subscriptions': [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'amount': "$9.99"},
-                        {'name': 'Google Express', 'date': 'Scheduled on Oct 14', 'amount': "$10.00"},
-                        {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'amount': "$29.99"}]}
+  coords = request.args.get('coords')
+  if coords:
+    out_vals = {'curr_bal': {'val': 40.02, 'due': "Due on Nov 6"}, 'credit': {'val': 2385.35, 'limit': "Credit limit: $2500"},
+      'transactions': [{'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "-$44.05", 'lat': "41.859483", 'lon': "-88.0598467"},
+                        {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05", 'lat': "41.879483", 'lon': "-88.0998467"}],
+      'subscriptions': [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'amount': "$9.99"},
+                          {'name': 'Google Express', 'date': 'Scheduled on Oct 14', 'amount': "$10.00"},
+                          {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'amount': "$29.99"}]}
+  else:
+    out_vals = {'curr_bal': {'val': 40.02, 'due': "Due on Nov 6"}, 'credit': {'val': 2385.35, 'limit': "Credit limit: $2500"},
+      'transactions': [{'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "-$44.05"},
+                        {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05"}],
+      'subscriptions': [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'amount': "$9.99"},
+                          {'name': 'Google Express', 'date': 'Scheduled on Oct 14', 'amount': "$10.00"},
+                          {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'amount': "$29.99"}]}
   return make_response(jsonify(out_vals))
 
 @app.route('/app_events', methods=['GET'])
