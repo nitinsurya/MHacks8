@@ -23,7 +23,7 @@ function drawChart() {
 $(document).ready(function() {
 		$('.x_panel_calendar').fullCalendar({
 		// allow "more" link when too many events
-			events: './events.json'
+			events: 'http://52.77.240.18:8081/app_events'
 		});
 });
 
