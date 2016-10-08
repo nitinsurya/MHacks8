@@ -45,7 +45,7 @@ def app_content():
       merchant_details = merchant_data[elem['merchant_id']]
       if coords:
         out_vals['transactions'] = [{'name': merchant_details['name'], 'date': get_format_data(elem['purchase_date']), 'amount': str(elem['amount']),
-                  'lat': merchant_details['lat'], 'lon': merchant_details['lon']},
+                  'lat': merchant_details['lat'], 'lon': merchant_details['lng']},
                 {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05", 'lat': "41.879483", 'lon': "-88.0998467"}]
       else:
         out_vals['transactions'] = [{'name': merchant_details['name'], 'date': get_format_data(elem['purchase_date']), 'amount': str(elem['amount'])},
