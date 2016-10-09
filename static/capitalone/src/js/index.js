@@ -14,7 +14,7 @@ function drawChart() {
 
   var options = {
     pieHole: 0.4,
-    colors: ['#3F51B5','#E8700C','#8BC34A'],
+    colors: ['#3F51B5','#E8700C','#8BC34A', '#f4b642', '#f44242'],
     backgroundColor: 'transparent',
     legend: {
       alignment: 'center'
