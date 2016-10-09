@@ -118,13 +118,13 @@ def app_content():
         merchant_details = merchant_data[elem['merchant_id']]
         pie_data.append(merchant_details['category'])
         out_vals['transactions'].append({'name': merchant_details['name'],
-          'date': "Scheduled on " + get_format_date(datetime.datetime.strptime(elem['purchase_date'], "%Y-%m-%d").date()), 'amount': str(elem['amount'])})
+          'date': get_format_date(datetime.datetime.strptime(elem['purchase_date'], "%Y-%m-%d").date()), 'amount': str(elem['amount'])})
   else:
     return make_response(jsonify({"error": "Something went wrong"}))
 
   url = "http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + mhack_key
   req = requests.get(url).json()
-  out_vals['subscriptions'] = get_subscription_data()
+  out_vals['subscriptions'] = get_subscription_data(True)
   out_vals['pie_content'] = get_pie_content(pie_data)
   return make_response(jsonify(out_vals))
 
@@ -156,13 +156,15 @@ def mhacks():
 def not_found(error):
   return make_response(jsonify({'error': 'Not found'}), 404)
 
-def get_subscription_data():
+def get_subscription_data(scheduled = False):
   account_id, out_vals = '57f89267360f81f104543bd1', []
   url = "http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + mhack_key
   json_data = requests.get(url).json()
   for elem in json_data:
+    date_formatted = get_format_date(datetime.datetime.strptime(elem['payment_date'], "%Y-%m-%d").date())
     out_vals.append({'name': elem['nickname'], 'start_date': elem['payment_date'],
-      'date': get_format_date(datetime.datetime.strptime(elem['payment_date'], "%Y-%m-%d").date()), 'amount': '$' + str(elem['payment_amount'])})
+      'date': "Scheduled on " + date_formatted if scheduled else date_formatted,
+      'amount': '$' + str(elem['payment_amount'])})
 
   return out_vals
 
