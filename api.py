@@ -175,7 +175,7 @@ def get_pie_content(data):
   out_val, tmp_val = [['category', 'amount']], [] 
 
   for elem in data:
-    tmp_val = tmp_val + elem
+    tmp_val = tmp_val + [el.lower() for el in elem]
   tmp_val = Counter(tmp_val)
   for key in tmp_val:
     out_val.append([key.replace("_", " ").capitalize(), tmp_val[key]])
