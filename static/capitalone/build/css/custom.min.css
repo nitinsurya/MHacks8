@@ -374,4 +374,19 @@ em.positive{
 
     to { width: 80% }
 }
-
+.action-button{
+    padding: 7px;
+    background: #115e92;
+    border-radius: 6px;
+    color: #fff;
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.action-button.grey{
+    color: #555;
+    background: #EEE;
+    margin-left: 10px;
+    border: 1px solid #CCC;
+}
