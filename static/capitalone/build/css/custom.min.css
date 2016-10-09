@@ -30,7 +30,7 @@
 }
 .img-circle.profile_img{
 	border: 0;
-	background: #115e92;
+	background: #DDD;
 }
 .profile_info {
     padding: 20px 0px 10px;
@@ -132,4 +132,29 @@
 }
 .amount.negative{
 	color: lightcoral !important;
+}
+.nav.side-menu>li>a {
+    margin-bottom: 0;
+}
+.fc-toolbar .fc-left{
+	width: 100%;
+}
+.fc-toolbar .fc-left h2{
+    font-size: 13px;
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+}
+.x_content{
+	padding: 0;
+}
+table.countries_list td {
+    border-bottom: 1px solid #eeeeee;
+	border-top: 0;
+}
+.fc th, .fc td, .fc hr, .fc thead, .fc tbody, .fc-row{
+	font-weight: 400;
+}
+.x_panel{
+	border: 1px solid #CCC;
 }
