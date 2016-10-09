@@ -30,18 +30,14 @@ function drawChart() {
 
 
 $(document).ready(function() {
-  // $.getJSON('http://' + server_ip + '/app_events', function(data) {
     $('.x_panel_calendar').fullCalendar({
       // allow "more" link when too many events
       events: 'http://' + server_ip + '/app_events'
     });
-  // })
 
 
   console.log(annyang);
   if (annyang) {
-
-      console.log(annyang+"inside if");
    // Let's define our first command. First the text we expect, and then the function it should call
    var commands = {
      'show budgets': function() {

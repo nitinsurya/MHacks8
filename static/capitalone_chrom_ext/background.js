@@ -7,7 +7,7 @@ var options = {
 type: "basic", 
 title: "My first popup",
 message: "Cool",
-iconUrl: "logo.png"
+iconUrl: "logo3.png"
 };
 
 var type;

@@ -162,7 +162,7 @@ def get_subscription_data(scheduled = False):
   json_data = requests.get(url).json()
   for elem in json_data:
     date_formatted = get_format_date(datetime.datetime.strptime(elem['payment_date'], "%Y-%m-%d").date())
-    out_vals.append({'name': elem['nickname'], 'start_date': elem['payment_date'],
+    out_vals.append({'name': elem['payee'], 'start_date': elem['payment_date'],
       'date': "Scheduled on " + date_formatted if scheduled else date_formatted,
       'amount': '$' + str(elem['payment_amount'])})
 
