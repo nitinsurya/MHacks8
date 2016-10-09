@@ -43,8 +43,8 @@ function initMap() {
   $.getJSON("http://" + server_ip + "/app_content?coords=true", function(d) {
     data.content = d;
     map = new google.maps.Map($('#world-map-gdp')[0], {
-      zoom: 10,
-      center: new google.maps.LatLng(41.859483,-88.0598467),
+      zoom: 4,
+      center: new google.maps.LatLng(40.459483,-91.0598467),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     setmarkers(d);
