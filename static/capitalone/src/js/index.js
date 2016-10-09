@@ -52,7 +52,7 @@ $(document).ready(function() {
      // },
      'show': function() {
       console.log('hello htere')
-     }
+     },
      'show me': function() {
       console.log('hello htere.. showing me')
      }

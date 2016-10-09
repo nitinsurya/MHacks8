@@ -10,9 +10,12 @@
 .left_col, body{
 	background:#FFF;
 }
+.site_title {
+    padding-left: 0px;
+}
 .logo{
 	background: url("../../images/logo.png");
-	width: 100px;
+	width: 200px;
 	height: 35px;
 	margin: 0 auto;
     margin-top: 20px;
