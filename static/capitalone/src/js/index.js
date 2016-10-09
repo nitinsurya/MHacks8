@@ -16,10 +16,10 @@ function drawChart() {
     colors: ['#3F51B5','#E8700C','#8BC34A'],
     backgroundColor: 'transparent',
     legend: {
-  	  alignment: 'center'
+      alignment: 'center'
     },
     tooltip: {
-  	  text: 'percentage'
+      text: 'percentage'
     }
   };
 

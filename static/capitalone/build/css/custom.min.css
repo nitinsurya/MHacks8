@@ -158,3 +158,217 @@ table.countries_list td {
 .x_panel{
 	border: 1px solid #CCC;
 }
+
+
+
+/* BUDGET PAGE */
+.order-single {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.left-order {
+    width: 100%;
+    float: left;
+	border-bottom: 1px solid #EEE;
+	padding-bottom: 20px;
+}
+.order-name {
+    float: left;
+    width: 100%;
+    padding: 9px 0;
+    font-weight: 400;
+}
+.order-name em {
+    font-style: normal;
+    color: #115e92;
+    font-weight: 600;
+}
+em.negative{
+	color: red;
+}
+em.positive{
+	color: mediumseagreen;
+}
+#progressbar {
+    width: 88%;
+    height: 15px;
+    background-color: #eee;
+    margin: 2px 10px;
+    border: 1px #ccc double;
+    border-radius: 10px;
+    float: left;
+}
+#progress {
+    background: #115e92; /*-- Color of the bar --*/
+    height: 15px;
+    width: 0%;
+    max-width: 100%;
+    float: left;
+    -webkit-animation: progress 2s 1 forwards;
+    -moz-animation: progress 2s 1 forwards;
+    -ms-animation: progress 2s 1 forwards;
+    animation: progress 2s 1 forwards;
+    border-radius: 10px;
+    margin-top: -1px;
+}
+
+#progress2 {
+    background: #115e92; /*-- Color of the bar --*/
+    height: 15px;
+    width: 0%;
+    max-width: 100%;
+    float: left;
+    -webkit-animation: progress2 2s 1 forwards;
+    -moz-animation: progress2 2s 1 forwards;
+    -ms-animation: progress2 2s 1 forwards;
+    animation: progress2 2s 1 forwards;
+    border-radius: 10px;
+    margin-top: -1px;
+}
+#progress3 {
+    background: #115e92; /*-- Color of the bar --*/
+    height: 15px;
+    width: 0%;
+    max-width: 100%;
+    float: left;
+    -webkit-animation: progress3 2s 1 forwards;
+    -moz-animation: progress3 2s 1 forwards;
+    -ms-animation: progress3 2s 1 forwards;
+    animation: progress3 2s 1 forwards;
+    border-radius: 10px;
+    margin-top: -1px;
+}
+.order-shipped{
+	float: left;
+	font-weight: 400;
+}
+.order-delivered{
+	float: left;
+	font-weight: 400;
+}
+.tractor-order-icon{
+	width: 27px;
+    height: 26px;
+    float: right;
+    background-size: 34px;
+    margin-top: -6px;
+    border: 2px solid #FFF;
+    margin-right: -10px;
+    background: #115e92;
+    border-radius: 50%;
+}
+.tractor-order-icon:before{
+	color: #FFF;
+    position: absolute;
+    padding: 4px 8px;
+    font-size: 14px;
+}
+.last-seen{
+	    float: right;
+    margin-top: -30px;
+    width: 40px;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.3em;
+    margin-right: -45px;
+}
+
+.expenditure-snapshot{
+	width: 22%;
+    float: right;
+    margin-top: 5%;
+    margin-right: 3%;
+	border: 1px solid #EEE;
+}
+.orders{
+	width: 70%;
+	float: left;
+	padding-left: 6px;
+}
+.expenditure-title{
+	font-size: 16px;
+    width: 100%;
+    float: left;
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #EEE;
+}
+.expenditure-earned, .expenditure-spent, .expenditure-balance{
+	float: left;
+    width: 100%;
+    padding: 5px 15px;
+}
+@-webkit-keyframes progress { 
+    from { }
+
+    to { width: 36% }
+}
+
+@-moz-keyframes progress { 
+    from { }
+
+    to { width: 36% }
+}
+
+@-ms-keyframes progress { 
+    from { }
+
+    to { width: 36% }
+}
+
+@keyframes progress { 
+    from { }
+
+    to { width: 36% }
+}
+
+
+@-webkit-keyframes progress2 { 
+    from { }
+
+    to { width: 100% }
+}
+
+@-moz-keyframes progress2 { 
+    from { }
+
+    to { width: 100% }
+}
+
+@-ms-keyframes progress2 { 
+    from { }
+
+    to { width: 100% }
+}
+
+@keyframes progress2 { 
+    from { }
+
+    to { width: 100% }
+}
+
+@-webkit-keyframes progress3 { 
+    from { }
+
+    to { width: 80% }
+}
+
+@-moz-keyframes progress3 { 
+    from { }
+
+    to { width: 80% }
+}
+
+@-ms-keyframes progress3 { 
+    from { }
+
+    to { width: 80% }
+}
+
+@keyframes progress3 { 
+    from { }
+
+    to { width: 80% }
+}
+

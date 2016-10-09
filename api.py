@@ -5,6 +5,7 @@ from flask import Flask, request, send_from_directory, jsonify, make_response, a
 import os
 import requests
 from flask_cors import CORS, cross_origin
+from collections import Counter
 
 app = Flask(__name__, static_url_path='')
 CORS(app)
@@ -17,21 +18,34 @@ merchant_data = {
     "city": "Chicago",
     "state": "IL",
     "lat": 41.879483,
-    "lng": -88.0998467
+    "lng": -88.0998467,
+    "category": [
+      "Food"
+    ]
   },
   '57cf75cea73e494d8675ec4f': {
     "name": "Zimet Musical Services",
     "city": "Ithaca",
     "state": "NY",
     "lat": 42.4497493,
-    "lng": -76.50136429999999
+    "lng": -76.50136429999999,
+    "category": [
+      "store",
+      "point_of_interest",
+      "establishment"
+    ]
   },
   '57cf75cea73e494d8675ed1f': {
     "name": "Verizon Authorized Retailer - Cellular Sales",
     "lat": 40.391877,
     "lng": -86.8514601,
     "city": "Lafayette",
-    "state": "IN"
+    "state": "IN",
+    "category": [
+      "store",
+      "point_of_interest",
+      "establishment"
+    ]
   },
   '57cf75cea73e494d8675ed1c': {
     "name": "Triple XXX Family Restaurant",
@@ -84,20 +98,23 @@ def app_content():
     json_data1 = req.json()
     url = "http://api.reimaginebanking.com/accounts/" + account_id + "/purchases?key=" + mhack_key
     json_data = requests.get(url).json()
+    pie_data = []
     
     if coords:
       out_vals = {'curr_bal': {'val': str(round(10000 - json_data1['balance'], 2)), 'text-sub': "Nov 6"},
         'credit': {'val': str(json_data1['balance']), 'text-sub': "$10000"}, 'transactions': []}
       for elem in json_data:
         merchant_details = merchant_data[elem['merchant_id']]
+        pie_data.append(merchant_details['category'])
         out_vals['transactions'].append({'name': merchant_details['name'],
                           'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount']),
                           'lat': merchant_details['lat'], 'lon': merchant_details['lng']})
     else:
       out_vals = {'curr_bal': {'val': round(10000 - json_data1['balance'], 2), 'text-sub': "Due on Nov 6"},
-        'credit': {'val': str(json_data1['balance']), 'text-sub': "Credit limit: $10000", 'transactions': []}}
+        'credit': {'val': str(json_data1['balance']), 'text-sub': "Credit limit: $10000"}, 'transactions': []}
       for elem in json_data:
         merchant_details = merchant_data[elem['merchant_id']]
+        pie_data.append(merchant_details['category'])
         out_vals['transactions'].append({'name': merchant_details['name'],
           'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount'])})
   else:
@@ -106,7 +123,7 @@ def app_content():
   url = "http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + mhack_key
   req = requests.get(url).json()
   out_vals['subscriptions'] = get_subscription_data()
-  out_vals['pie_content'] = get_pie_content()
+  out_vals['pie_content'] = get_pie_content(pie_data)
   return make_response(jsonify(out_vals))
 
 @app.route('/app_events', methods=['GET'])
@@ -119,7 +136,7 @@ def app_events():
     out_vals.append({"title": merchant_data[elem['merchant_id']]['name'] + " $" + str(elem['amount']), "start": elem['purchase_date'], "color": "blue"})
 
   for elem in get_subscription_data():
-    out_vals.append({"title": elem['name'] + " $" + elem['amount'], 'start': elem['start_date'], "color": "red"})
+    out_vals.append({"title": elem['name'] + elem['amount'], 'start': elem['start_date'], "color": "red"})
 
   return make_response(jsonify(out_vals))
 
@@ -149,8 +166,15 @@ def get_subscription_data():
 def get_format_date(date_str):
   return date_str
 
-def get_pie_content():
-  return [['category', 'amount'], ['Food', 4], ['Travel', 2], ['Entertainment', 2]]
+def get_pie_content(data):
+  out_val, tmp_val = [['category', 'amount']], [] 
+
+  for elem in data:
+    tmp_val = tmp_val + elem
+  tmp_val = Counter(tmp_val)
+  for key in tmp_val:
+    out_val.append([key, tmp_val[key]])
+  return out_val
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8081, debug=True, threaded=True)
