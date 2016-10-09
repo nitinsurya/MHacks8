@@ -44,19 +44,13 @@ $(document).ready(function() {
       console.log(annyang+"inside if");
    // Let's define our first command. First the text we expect, and then the function it should call
    var commands = {
-     'Show me my budgets': function() {
-       $('#budgetspage').trigger('click');
-     },
-     // 'show *': function() {
-     //  console.log('hello htere')
-     // },
      'show budgets': function() {
-      $('.budgets_link')[0].click()
+      responsiveVoice.speak('Opening.', "US English Female");
+      $('.budgets_link')[0].click();
+     },
+     'explain': function() {
+      responsiveVoice.speak("Your budget looks good! Look out for fast food spending though.", "US English Female");
      }
-     // ,
-     // '*': function() {
-     //  console.log('hello tere');
-     // }
    };
 
    // Add our commands to annyang
