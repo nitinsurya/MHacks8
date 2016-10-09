@@ -6,6 +6,7 @@ import os
 import requests
 from flask_cors import CORS, cross_origin
 from collections import Counter
+import datetime
 
 app = Flask(__name__, static_url_path='')
 CORS(app)
@@ -107,7 +108,8 @@ def app_content():
         merchant_details = merchant_data[elem['merchant_id']]
         pie_data.append(merchant_details['category'])
         out_vals['transactions'].append({'name': merchant_details['name'],
-                          'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount']),
+                          'date': get_format_date(datetime.datetime.strptime(elem['purchase_date'], "%Y-%m-%d").date()),
+                          'amount': str(elem['amount']),
                           'lat': merchant_details['lat'], 'lon': merchant_details['lng']})
     else:
       out_vals = {'curr_bal': {'val': round(10000 - json_data1['balance'], 2), 'text-sub': "Due on Nov 6"},
@@ -115,8 +117,9 @@ def app_content():
       for elem in json_data:
         merchant_details = merchant_data[elem['merchant_id']]
         pie_data.append(merchant_details['category'])
+        print(elem['purchase_date'])
         out_vals['transactions'].append({'name': merchant_details['name'],
-          'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount'])})
+          'date': get_format_date(datetime.datetime.strptime(elem['purchase_date'], "%Y-%m-%d").date()), 'amount': str(elem['amount'])})
   else:
     return make_response(jsonify({"error": "Something went wrong"}))
 
@@ -159,12 +162,13 @@ def get_subscription_data():
   url = "http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + mhack_key
   json_data = requests.get(url).json()
   for elem in json_data:
-    out_vals.append({'name': elem['nickname'], 'start_date': elem['payment_date'], 'amount': '$' + str(elem['payment_amount'])})
+    out_vals.append({'name': elem['nickname'], 'start_date': elem['payment_date'],
+      'date': get_format_date(datetime.datetime.strptime(elem['payment_date'], "%Y-%m-%d").date()), 'amount': '$' + str(elem['payment_amount'])})
 
   return out_vals
 
 def get_format_date(date_str):
-  return date_str
+  return date_str.strftime('%d, %b %Y')
 
 def get_pie_content(data):
   out_val, tmp_val = [['category', 'amount']], [] 
@@ -173,7 +177,7 @@ def get_pie_content(data):
     tmp_val = tmp_val + elem
   tmp_val = Counter(tmp_val)
   for key in tmp_val:
-    out_val.append([key, tmp_val[key]])
+    out_val.append([key.replace("_", " ").capitalize(), tmp_val[key]])
   return out_val
 
 if __name__ == '__main__':
