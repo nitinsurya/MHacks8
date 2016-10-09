@@ -3,7 +3,7 @@ function load_charts() {
   google.charts.setOnLoadCallback(drawChart);
 }
 server_ip = "52.77.240.18:8081"
-//server_ip = "0.0.0.0:8081"
+// server_ip = "0.0.0.0:8081"
 
 data = {
   content: null

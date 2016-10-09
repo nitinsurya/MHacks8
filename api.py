@@ -135,10 +135,10 @@ def app_events():
   json_data = requests.get(url).json()
   
   for elem in json_data:
-    out_vals.append({"title": merchant_data[elem['merchant_id']]['name'] + " $" + str(elem['amount']), "start": elem['purchase_date'], "color": "blue"})
+    out_vals.append({"title": merchant_data[elem['merchant_id']]['name'] + "\n$" + str(elem['amount']), "start": elem['purchase_date'], "color": "blue"})
 
   for elem in get_subscription_data():
-    out_vals.append({"title": elem['name'] + " " + elem['amount'], 'start': elem['start_date'], "color": "red"})
+    out_vals.append({"title": elem['name'] + "\n" + elem['amount'], 'start': elem['start_date'], "color": "red"})
 
   return make_response(jsonify(out_vals))
 
@@ -176,9 +176,9 @@ def get_pie_content(data):
 
   for elem in data:
     tmp_val = tmp_val + [el.lower() for el in elem]
-  tmp_val = Counter(tmp_val)
+  tmp_val = Counter(tmp_val).most_common(5)
   for key in tmp_val:
-    out_val.append([key.replace("_", " ").capitalize(), tmp_val[key]])
+    out_val.append([key[0].replace("_", " ").capitalize(), key[1]])
   return out_val
 
 if __name__ == '__main__':
