@@ -117,9 +117,8 @@ def app_content():
       for elem in json_data:
         merchant_details = merchant_data[elem['merchant_id']]
         pie_data.append(merchant_details['category'])
-        print(elem['purchase_date'])
         out_vals['transactions'].append({'name': merchant_details['name'],
-          'date': get_format_date(datetime.datetime.strptime(elem['purchase_date'], "%Y-%m-%d").date()), 'amount': str(elem['amount'])})
+          'date': "Scheduled on " + get_format_date(datetime.datetime.strptime(elem['purchase_date'], "%Y-%m-%d").date()), 'amount': str(elem['amount'])})
   else:
     return make_response(jsonify({"error": "Something went wrong"}))
 
@@ -139,7 +138,7 @@ def app_events():
     out_vals.append({"title": merchant_data[elem['merchant_id']]['name'] + " $" + str(elem['amount']), "start": elem['purchase_date'], "color": "blue"})
 
   for elem in get_subscription_data():
-    out_vals.append({"title": elem['name'] + elem['amount'], 'start': elem['start_date'], "color": "red"})
+    out_vals.append({"title": elem['name'] + " " + elem['amount'], 'start': elem['start_date'], "color": "red"})
 
   return make_response(jsonify(out_vals))
 
