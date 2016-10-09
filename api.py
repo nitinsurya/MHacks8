@@ -18,6 +18,49 @@ merchant_data = {
     "state": "IL",
     "lat": 41.879483,
     "lng": -88.0998467
+  },
+  '57cf75cea73e494d8675ec4f': {
+    "name": "Zimet Musical Services",
+    "city": "Ithaca",
+    "state": "NY",
+    "lat": 42.4497493,
+    "lng": -76.50136429999999
+  },
+  '57cf75cea73e494d8675ed1f': {
+    "name": "Verizon Authorized Retailer - Cellular Sales",
+    "lat": 40.391877,
+    "lng": -86.8514601,
+    "city": "Lafayette",
+    "state": "IN"
+  },
+  '57cf75cea73e494d8675ed1c': {
+    "name": "Triple XXX Family Restaurant",
+    "lat": 40.42272849999999,
+    "lng": -86.9054049,
+    "city": "West Lafayette",
+    "street number": "2",
+    "state": "IN",
+    "category": [
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ]
+  },
+  '57cf75cea73e494d8675ed23': {
+    "name": "Papa John's Pizza",
+    "category": [
+      "meal_delivery",
+      "meal_takeaway",
+      "restaurant",
+      "food",
+      "point_of_interest",
+      "establishment"
+    ],
+    "lat": 40.4334587,
+    "lng": -86.8693725,
+    "city": "Lafayette",
+    "state": "IN",
   }
 }
 
@@ -42,19 +85,21 @@ def app_content():
     url = "http://api.reimaginebanking.com/accounts/" + account_id + "/purchases?key=" + mhack_key
     json_data = requests.get(url).json()
     
-    for elem in json_data:
-      merchant_details = merchant_data[elem['merchant_id']]
-      if coords:
-        out_vals = {'curr_bal': {'val': str(round(10000 - json_data1['balance'], 2)), 'text-sub': "Nov 6"},
-          'credit': {'val': str(json_data1['balance']), 'text-sub': "$10000"}}
-        out_vals['transactions'] = [{'name': merchant_details['name'], 'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount']),
-                  'lat': merchant_details['lat'], 'lon': merchant_details['lng']},
-                {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05", 'lat': 41.879483, 'lon': -88.1098467}]
-      else:
-        out_vals = {'curr_bal': {'val': round(10000 - json_data1['balance'], 2), 'text-sub': "Due on Nov 6"},
-          'credit': {'val': str(json_data1['balance']), 'text-sub': "Credit limit: $10000"}}
-        out_vals['transactions'] = [{'name': merchant_details['name'], 'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount'])},
-                            {'name': 'Chapati Indian Grill', 'date': 'SATURDAY, OCT 8', 'amount': "$44.05"}]
+    if coords:
+      out_vals = {'curr_bal': {'val': str(round(10000 - json_data1['balance'], 2)), 'text-sub': "Nov 6"},
+        'credit': {'val': str(json_data1['balance']), 'text-sub': "$10000"}, 'transactions': []}
+      for elem in json_data:
+        merchant_details = merchant_data[elem['merchant_id']]
+        out_vals['transactions'].append({'name': merchant_details['name'],
+                          'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount']),
+                          'lat': merchant_details['lat'], 'lon': merchant_details['lng']})
+    else:
+      out_vals = {'curr_bal': {'val': round(10000 - json_data1['balance'], 2), 'text-sub': "Due on Nov 6"},
+        'credit': {'val': str(json_data1['balance']), 'text-sub': "Credit limit: $10000", 'transactions': []}}
+      for elem in json_data:
+        merchant_details = merchant_data[elem['merchant_id']]
+        out_vals['transactions'].append({'name': merchant_details['name'],
+          'date': get_format_date(elem['purchase_date']), 'amount': str(elem['amount'])})
   else:
     return make_response(jsonify({"error": "Something went wrong"}))
 
@@ -93,9 +138,13 @@ def not_found(error):
   return make_response(jsonify({'error': 'Not found'}), 404)
 
 def get_subscription_data():
-  return [{'name': 'Spotify', 'date': 'Scheduled on Oct 8', 'start_date': "2016-10-08", 'amount': "$9.99"},
-                        {'name': 'Google Express', 'date': 'Scheduled on Oct 14', 'start_date': "2016-10-14", 'amount': "$10.00"},
-                        {'name': 'LinkedIn Subscription', 'date': 'Scheduled on Oct 16', 'start_date': "2016-10-16", 'amount': "$29.99"}]
+  account_id, out_vals = '57f89267360f81f104543bd1', []
+  url = "http://api.reimaginebanking.com/accounts/" + account_id + "/bills?key=" + mhack_key
+  json_data = requests.get(url).json()
+  for elem in json_data:
+    out_vals.append({'name': elem['nickname'], 'start_date': elem['payment_date'], 'amount': '$' + str(elem['payment_amount'])})
+
+  return out_vals
 
 def get_format_date(date_str):
   return date_str

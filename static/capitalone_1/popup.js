@@ -3,6 +3,12 @@ urls = {
 }
 
 $(document).ready(function(){
+   // to open new tabs when clicked on a link
+   $('body').on('click', 'a', function(){
+     chrome.tabs.create({url: $(this).attr('href')});
+     return false;
+   });
+    
     $(".transactions").click(function(){
         $(this).addClass("selected");
         $(".subscriptions").removeClass("selected");
