@@ -50,11 +50,8 @@ $(document).ready(function() {
      // 'show *': function() {
      //  console.log('hello htere')
      // },
-     'show': function() {
-      console.log('hello htere')
-     },
-     'show me': function() {
-      console.log('hello htere.. showing me')
+     'show budgets': function() {
+      $('.budgets_link')[0].click()
      }
      // ,
      // '*': function() {
