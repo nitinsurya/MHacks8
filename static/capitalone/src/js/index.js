@@ -36,6 +36,38 @@ $(document).ready(function() {
       events: 'http://' + server_ip + '/app_events'
     });
   // })
+
+
+  console.log(annyang);
+  if (annyang) {
+
+      console.log(annyang+"inside if");
+   // Let's define our first command. First the text we expect, and then the function it should call
+   var commands = {
+     'Show me my budgets': function() {
+       $('#budgetspage').trigger('click');
+     },
+     // 'show *': function() {
+     //  console.log('hello htere')
+     // },
+     'show': function() {
+      console.log('hello htere')
+     }
+     'show me': function() {
+      console.log('hello htere.. showing me')
+     }
+     // ,
+     // '*': function() {
+     //  console.log('hello tere');
+     // }
+   };
+
+   // Add our commands to annyang
+   annyang.addCommands(commands);
+
+   // Start listening. You can call this here, or attach this call to an event, button, etc.
+   annyang.start();
+  }
 });
 
 var map;
@@ -82,4 +114,3 @@ function setmarkers(data) {
      });
   });
 }
- 
